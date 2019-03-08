@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
+using System.Web.Mvc;
 using HiringTest1.Models.Data;
 
 namespace HiringTest1.Models.ViewModels
@@ -20,7 +21,7 @@ namespace HiringTest1.Models.ViewModels
             Title = row.Title;
             Text = row.Text;
             CreatedAt = row.CreatedAt;
-            Color = row.Color;
+            ColorId = row.ColorId;
         }
 
         [Required]
@@ -30,6 +31,9 @@ namespace HiringTest1.Models.ViewModels
         [StringLength(512, ErrorMessage ="You have exceeded the maximum allowed characters.")]
         public string Text { get; set; }
         public DateTime CreatedAt { get; set; }
-        public string Color { get; set; }
+        public string ColorName { get; set; }
+        public int ColorId { get; set; }
+        public virtual IEnumerable<SelectListItem> ColorList { get; set; }
+
     }
 }

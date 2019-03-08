@@ -7,14 +7,11 @@ using System.Web;
 
 namespace HiringTest1.Models.Data
 {
-    [Table("Note")]
-    public class Note
+    [Table("Color")]
+    public class Color
     {
         [Key]
         public int Id { get; set; }
-        public string Title { get; set; }
-        public string Text { get; set; }
-        public DateTime CreatedAt { get; set; }
-        public int ColorId { get; set; }
+        public string Name { get; set; }
     }
 }

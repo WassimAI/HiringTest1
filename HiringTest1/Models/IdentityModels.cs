@@ -1,6 +1,7 @@
 ﻿using System.Data.Entity;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using HiringTest1.Models.Data;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 
@@ -29,5 +30,8 @@ namespace HiringTest1.Models
         {
             return new ApplicationDbContext();
         }
+
+        public DbSet<Note> Notes { get; set; }
+        public DbSet<Color> Colors { get; set; }
     }
 }
