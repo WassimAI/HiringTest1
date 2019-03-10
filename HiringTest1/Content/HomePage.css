@@ -1,1 +1,7 @@
-﻿
+﻿.container .thumbContainer .noteThumbnail {
+    display: inline-block;
+}
+
+.container .upperSection{
+    margin-left: 150px;
+}

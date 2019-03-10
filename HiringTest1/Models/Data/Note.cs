@@ -14,9 +14,9 @@ namespace HiringTest1.Models.Data
         public int Id { get; set; }
         public string Title { get; set; }
         public string Text { get; set; }
-        public DateTime CreatedAt { get; set; }
-        [ForeignKey("Color")]
+        [DataType(DataType.Date)]
+        public DateTime Date { get; set; }
+//        [ForeignKey("ColorId")]
         public int ColorId { get; set; }
-        public virtual Color Color { get; set; }
     }
 }

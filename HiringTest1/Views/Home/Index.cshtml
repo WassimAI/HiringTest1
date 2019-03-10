@@ -1,27 +1,29 @@
-﻿@{
+﻿@model IEnumerable<HiringTest1.Models.ViewModels.NoteVM>
+
+@{
     ViewBag.Title = "Home Page";
 }
 
 <div class="container">
-    <div class="row">
+    <div class="row upperSection">
         <div class="col-md-2 hidden-xs"></div>
         <div class="col-md-8 col-sx-12">
-            <form method="post" action="/Home/AddNote" id="submitForm" class="form-horizontal submitForm">
+            <form method="post" action="/Home/AddNote" id="submitForm" enctype="multipart/form-data" class="form-horizontal submitForm">
                 <div class="form-group add-note">
                     <label>Title</label>
-                    <input type="text" id="titleTxt" name="titleTxt" class="form-control" />
+                    <input type="text" id="titleTxt" name="Title" class="form-control" />
                     <label>Write Content</label>
-                    <textarea class="form-control" rows="4" aria-label="With textarea" placeholder="Type here..."></textarea><br />
-                    <select name="listOfColors" size="1" class="form-control">
-                        <option>Select Color</option>
-                        <option>black</option>
-                        <option>white</option> 
-                        <option>blue</option> 
-                        <option>orange</option> 
-                        <option>red</option> 
-                        <option>green</option> 
-                        <option>yellow</option> 
-                        <option>purple</option> 
+                    <textarea class="form-control" name="Text" rows="4" aria-label="With textarea" placeholder="Type here..."></textarea><br />
+                    <select name="ColorId" size="1" class="form-control">
+                        <option value="0">Select Color</option>
+                        <option value="1">black</option>
+                        <option value="2">white</option> 
+                        <option value="3">red</option> 
+                        <option value="4">blue</option> 
+                        <option value="5">green</option> 
+                        <option value="6">yellow</option> 
+                        <option value="7">purple</option> 
+                        <option value="8">orange</option> 
                     </select><br />
                     <input type="submit" id="submitBtn" class="btn btn-success form-control" value="Add Note" />
                 </div>
@@ -32,15 +34,21 @@
     </div>
     <hr />
     <div class="row">
-        <div class="col-md-12">
-            Notes Go Here
+        <div class="col-md-1 hidden-xs"></div>
+        <div class="col-md-10 thumbContainer">
+            @Html.Partial("_NoteThumbnailsPartial", Model)
         </div>
+        <div class="col-md-1 hidden-xs"></div>
     </div>
 </div>
 
 @section Scripts{
     
     <script>
-
+        $(function () {
+            $("#submitForm").submit(function () {
+                alert("Note is added");
+            });
+        });
     </script>    
 }

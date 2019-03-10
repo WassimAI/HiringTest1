@@ -20,8 +20,8 @@ namespace HiringTest1.Models.ViewModels
             Id = row.Id;
             Title = row.Title;
             Text = row.Text;
-            CreatedAt = row.CreatedAt;
             ColorId = row.ColorId;
+            Date = row.Date;
         }
 
         [Required]
@@ -30,10 +30,9 @@ namespace HiringTest1.Models.ViewModels
         public string Title { get; set; }
         [StringLength(512, ErrorMessage ="You have exceeded the maximum allowed characters.")]
         public string Text { get; set; }
-        public DateTime CreatedAt { get; set; }
-        public string ColorName { get; set; }
         public int ColorId { get; set; }
-        public virtual IEnumerable<SelectListItem> ColorList { get; set; }
+        [DataType(DataType.Date)]
+        public DateTime Date { get; set; }
 
     }
 }

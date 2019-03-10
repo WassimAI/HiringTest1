@@ -22,7 +22,7 @@ namespace HiringTest1.Models
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
         public ApplicationDbContext()
-            : base("DefaultConnection", throwIfV1Schema: false)
+            : base("HiringTestDB", throwIfV1Schema: false)
         {
         }
 
