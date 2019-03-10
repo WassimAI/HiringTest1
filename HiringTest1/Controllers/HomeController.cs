@@ -16,20 +16,18 @@ namespace HiringTest1.Controllers
         // GET: Home
         public ActionResult Index()
         {
-            ViewBag.ColorId = new SelectList(db.Colors, "Id", "Name");
+            var listOfColors = db.Colors.ToList();
 
-            var model = new NoteVM();
+            ViewBag.ColorList = new SelectList(listOfColors, "Id", "Name");
 
-            return View(model);
+            return View();
         }
 
-        public ActionResult AddNote()
+        public void AddNote(NoteVM model)
         {
-            var model = new NoteVM();
-
-            ViewBag.ColorId = new SelectList(db.Colors, "Id", "Name");
-            
-            return View(model);
+            //Adding note code goes here
         }
+
+
     }
 }

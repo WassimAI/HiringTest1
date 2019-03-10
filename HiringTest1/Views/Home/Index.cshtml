@@ -2,20 +2,45 @@
     ViewBag.Title = "Home Page";
 }
 
-<div class="upperSection">
+<div class="container">
     <div class="row">
-        <div class="col-md-2"></div>
-        <div class="col-md-8 createNote text-center">
-            @Html.Partial("_AddNotePartial")
+        <div class="col-md-2 hidden-xs"></div>
+        <div class="col-md-8 col-sx-12">
+            <form method="post" action="/Home/AddNote" id="submitForm" class="form-horizontal submitForm">
+                <div class="form-group add-note">
+                    <label>Title</label>
+                    <input type="text" id="titleTxt" name="titleTxt" class="form-control" />
+                    <label>Write Content</label>
+                    <textarea class="form-control" rows="4" aria-label="With textarea" placeholder="Type here..."></textarea><br />
+                    <select name="listOfColors" size="1" class="form-control">
+                        <option>Select Color</option>
+                        <option>black</option>
+                        <option>white</option> 
+                        <option>blue</option> 
+                        <option>orange</option> 
+                        <option>red</option> 
+                        <option>green</option> 
+                        <option>yellow</option> 
+                        <option>purple</option> 
+                    </select><br />
+                    <input type="submit" id="submitBtn" class="btn btn-success form-control" value="Add Note" />
+                </div>
+            </form>
+
         </div>
-        <div class="col-md-2"></div>
+        <div class="col-md-2 hidden-xs"></div>
     </div>
-</div>
-<hr />
-<div class="lowerSection">
+    <hr />
     <div class="row">
         <div class="col-md-12">
-            Notes Thumbnails Go Here...
+            Notes Go Here
         </div>
     </div>
 </div>
+
+@section Scripts{
+    
+    <script>
+
+    </script>    
+}
