@@ -1,7 +1,26 @@
-﻿.container .thumbContainer .noteThumbnail {
+﻿.container .noteThumbnail {
     display: inline-block;
+}
+.container .noteThumbnail .panel {
+    width: 250px;
+    border-left-width:  3px;
 }
 
 .container .upperSection{
     margin-left: 150px;
+}
+
+.container .noteThumbnail a{
+    color: white;
+    margin-top: 0px;
+    padding-right: 2px;
+}
+
+.container .container .panel-heading{
+    padding: 5px;
+}
+
+.container .panel-footer {
+    color: #808080;
+    text-shadow: 0 2px 0 #FFF;
 }

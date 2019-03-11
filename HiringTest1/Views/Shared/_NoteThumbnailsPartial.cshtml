@@ -4,26 +4,26 @@
 
 @foreach (var item in Model)
 {
-    if (count == 4)
+    if (count == 3)
     {
         <br />
         count = 0;
     }
     <div class="noteThumbnail">
-        <div class="panel panel-primary">
+        <div class="panel panel-primary" style="border-left-color: @{@item.ColorName};">
             <div class="panel-heading">
                 @item.Title
-                <div class="links-corner">
-                    <a class="delete-link" href="#">
-                        <span class="glyphicon glyphicon-trash pull-right"></span>
-                    </a>
+                <div class="pull-right">
                     <a class="edit-link" href="#">
-                        <span class="glyphicon glyphicon-remove pull-right"></span>
+                        <span class="glyphicon glyphicon-pencil"></span>
+                    </a>
+                    <a class="delete-link" href="#">
+                        <span class="glyphicon glyphicon-remove"></span>
                     </a>
                 </div>
             </div>
-            <div class="panel-body">@item.Text</div>
-            <div class="panel-footer">@item.Date</div>
+            <div class="panel-body">@item.ShortText</div>
+            <div class="panel-footer">@item.Date.ToShortDateString()<span class="pull-right">@item.Date.ToShortTimeString()</span></div>
         </div>
     </div>
     count++;

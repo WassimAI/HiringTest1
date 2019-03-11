@@ -23,7 +23,9 @@ namespace HiringTest1.Controllers
             return View(model);
         }
 
-        public ActionResult AddNote(NoteVM model)
+        [HttpPost]
+        // /Home/addNoteAjax
+        public PartialViewResult addNote(NoteVM model)
         {
             //Adding note code goes here
             Note note = new Note();
@@ -36,7 +38,7 @@ namespace HiringTest1.Controllers
             db.Notes.Add(note);
             db.SaveChanges();
 
-            return RedirectToAction("Index");
+            return PartialView("_NoteThumbnailsPartial", db.Notes.ToArray().Select(x => new NoteVM(x)).ToList());
         }
 
 

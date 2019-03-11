@@ -1,20 +1,20 @@
 ﻿@model IEnumerable<HiringTest1.Models.ViewModels.NoteVM>
 
 @{
-    ViewBag.Title = "Home Page";
+    ViewBag.Title = "Ajax Page";
 }
 
 <div class="container">
     <div class="row upperSection">
         <div class="col-md-2 hidden-xs"></div>
         <div class="col-md-8 col-sx-12">
-            <form method="post" action="/Home/AddNote" id="submitForm" enctype="multipart/form-data" class="form-horizontal submitForm">
+            
                 <div class="form-group add-note">
                     <label>Title</label>
                     <input type="text" id="titleTxt" name="Title" class="form-control" />
                     <label>Write Content</label>
-                    <textarea class="form-control" name="Text" rows="4" aria-label="With textarea" placeholder="Type here..."></textarea><br />
-                    <select name="ColorId" size="1" class="form-control">
+                    <textarea class="form-control" id="contentTxt" name="Text" rows="4" cols="10" aria-label="With textarea" placeholder="Type here..."></textarea><br />
+                    <select id="colorDropDown" name="ColorId" size="1" class="form-control">
                         <option value="0">Select Color</option>
                         <option value="1">black</option>
                         <option value="2">white</option> 
@@ -25,9 +25,9 @@
                         <option value="7">purple</option> 
                         <option value="8">orange</option> 
                     </select><br />
-                    <input type="submit" id="submitBtn" class="btn btn-success form-control" value="Add Note" />
+                    <input id="submitBtn" class="btn btn-success form-control" value="Add Note" />
                 </div>
-            </form>
+
 
         </div>
         <div class="col-md-2 hidden-xs"></div>
@@ -46,8 +46,24 @@
     
     <script>
         $(function () {
-            $("#submitForm").submit(function () {
-                alert("Note is added");
+            $("#submitBtn").click(function () {
+                var title = $("#titleTxt").val();
+                var content = $("textarea#contentTxt").val();
+                var colorId = $("#colorDropDown").val();
+                var url = "/Home/addNote";
+
+                var model = {
+                    Title: title,
+                    Text: content,
+                    ColorId: colorId
+                };
+
+                $.post(url, { model: model }, function (data) {
+                    //alert("function is called man!");
+
+                    $(".container .thumbContainer").html(data);
+
+                });
             });
         });
     </script>    
