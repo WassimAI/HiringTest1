@@ -41,6 +41,18 @@ namespace HiringTest1.Controllers
             return PartialView("_NoteThumbnailsPartial", db.Notes.ToArray().Select(x => new NoteVM(x)).ToList());
         }
 
+        [HttpPost]
+        // Home/DeleteNote/1
+        public PartialViewResult DeleteNote(int id)
+        {
+            Note noteToDelete = db.Notes.Where(x => x.Id.Equals(id)).FirstOrDefault();
+
+            db.Notes.Remove(noteToDelete);
+            db.SaveChanges();
+
+            return PartialView("_NoteThumbnailsPartial", db.Notes.ToArray().Select(x => new NoteVM(x)).ToList());
+        }
+
 
     }
 }

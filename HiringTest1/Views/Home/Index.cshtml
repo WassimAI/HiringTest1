@@ -8,25 +8,25 @@
     <div class="row upperSection">
         <div class="col-md-2 hidden-xs"></div>
         <div class="col-md-8 col-sx-12">
-            
-                <div class="form-group add-note">
-                    <label>Title</label>
-                    <input type="text" id="titleTxt" name="Title" class="form-control" />
-                    <label>Write Content</label>
-                    <textarea class="form-control" id="contentTxt" name="Text" rows="4" cols="10" aria-label="With textarea" placeholder="Type here..."></textarea><br />
-                    <select id="colorDropDown" name="ColorId" size="1" class="form-control">
-                        <option value="0">Select Color</option>
-                        <option value="1">black</option>
-                        <option value="2">white</option> 
-                        <option value="3">red</option> 
-                        <option value="4">blue</option> 
-                        <option value="5">green</option> 
-                        <option value="6">yellow</option> 
-                        <option value="7">purple</option> 
-                        <option value="8">orange</option> 
-                    </select><br />
-                    <input id="submitBtn" class="btn btn-success form-control" value="Add Note" />
-                </div>
+
+            <div class="form-group add-note">
+                <label>Title</label>
+                <input type="text" id="titleTxt" name="Title" class="form-control" />
+                <label>Write Content</label>
+                <textarea class="form-control" id="contentTxt" name="Text" rows="4" cols="10" aria-label="With textarea" placeholder="Type here..."></textarea><br />
+                <select id="colorDropDown" name="ColorId" size="1" class="form-control">
+                    <option value="0">Select Color</option>
+                    <option value="1">black</option>
+                    <option value="2">white</option>
+                    <option value="3">red</option>
+                    <option value="4">blue</option>
+                    <option value="5">green</option>
+                    <option value="6">yellow</option>
+                    <option value="7">purple</option>
+                    <option value="8">orange</option>
+                </select><br />
+                <input id="submitBtn" class="btn btn-success form-control" value="Add Note" />
+            </div>
 
 
         </div>
@@ -43,7 +43,7 @@
 </div>
 
 @section Scripts{
-    
+
     <script>
         $(function () {
             $("#submitBtn").click(function () {
@@ -59,12 +59,34 @@
                 };
 
                 $.post(url, { model: model }, function (data) {
-                    //alert("function is called man!");
-
+                    toastr.success("Note is Added");
                     $(".container .thumbContainer").html(data);
+                    $("#titleTxt").val("");
+                    $("textarea#contentTxt").val("");
+                    var colorId = $("#colorDropDown").val(0);
 
+                }).fail(function () {
+                    toastr.error("Something went wrong, note was not added");
                 });
             });
+
+            //We had to link the event to document in order to make this event work for all dynamically added content!
+            $(document).on("click", '.delete-link', function (e) {
+                e.preventDefault();
+
+                var id = $(this).data("id");
+                var url = "/Home/DeleteNote";
+
+
+                $.post(url, { id: id }, function (response) {
+                    toastr.info("Note Delete");
+                    $(".container .thumbContainer").html(response);
+
+                }).fail(function () {
+                    toastr.error("Something went wrong, note was not deleted");
+                });;
+            });
+
         });
-    </script>    
+    </script>
 }
