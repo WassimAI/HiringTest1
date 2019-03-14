@@ -24,3 +24,7 @@
     color: #808080;
     text-shadow: 0 2px 0 #FFF;
 }
+
+a.edit-link:hover {
+    text-decoration: none;
+}

@@ -22,7 +22,7 @@ namespace HiringTest1.Models.ViewModels
             Title = row.Title;
             Text = row.Text;
             ColorId = row.ColorId;
-            Date = row.Date;
+            CreatedAt = row.CreatedAt;
         }
 
         [Required]
@@ -44,7 +44,7 @@ namespace HiringTest1.Models.ViewModels
 
         public string ColorName { get { return db.Colors.Where(x => x.Id == ColorId).Select(x => x.Name).FirstOrDefault(); } }
         //[DataType(DataType.Date)]
-        public DateTime Date { get; set; }
+        public DateTime CreatedAt { get; set; }
 
     }
 }

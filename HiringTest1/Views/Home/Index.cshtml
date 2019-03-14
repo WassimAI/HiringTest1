@@ -9,24 +9,7 @@
         <div class="col-md-2 hidden-xs"></div>
         <div class="col-md-8 col-sx-12">
 
-            <div class="form-group add-note">
-                <label>Title</label>
-                <input type="text" id="titleTxt" name="Title" class="form-control" />
-                <label>Write Content</label>
-                <textarea class="form-control" id="contentTxt" name="Text" rows="4" cols="10" aria-label="With textarea" placeholder="Type here..."></textarea><br />
-                <select id="colorDropDown" name="ColorId" size="1" class="form-control">
-                    <option value="0">Select Color</option>
-                    <option value="1">black</option>
-                    <option value="2">white</option>
-                    <option value="3">red</option>
-                    <option value="4">blue</option>
-                    <option value="5">green</option>
-                    <option value="6">yellow</option>
-                    <option value="7">purple</option>
-                    <option value="8">orange</option>
-                </select><br />
-                <input id="submitBtn" class="btn btn-success form-control" value="Add Note" />
-            </div>
+            @Html.Partial("_AddNotePartial")
 
 
         </div>
@@ -42,10 +25,25 @@
     </div>
 </div>
 
+<div class="modal fade" id="EditNoteModal">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <a href="#" class="close pull-right" data-dismiss="modal">&times;</a>
+                <h4>Edit Note</h4>
+            </div>
+            <div class="modal-body">
+                @Html.Partial("_EditNotePartial")
+            </div>
+        </div>
+    </div>
+</div>
+
 @section Scripts{
 
     <script>
         $(function () {
+            //Adding Note
             $("#submitBtn").click(function () {
                 var title = $("#titleTxt").val();
                 var content = $("textarea#contentTxt").val();
@@ -70,6 +68,7 @@
                 });
             });
 
+            //Delete Note
             //We had to link the event to document in order to make this event work for all dynamically added content!
             $(document).on("click", '.delete-link', function (e) {
                 e.preventDefault();
@@ -86,6 +85,51 @@
                     toastr.error("Something went wrong, note was not deleted");
                 });;
             });
+
+            //Edit Note - GET
+            $(document).on("click", '.edit-link', function (e) {
+                e.preventDefault();
+                $("#EditNoteModal").modal("show");
+                var id = $(this).data("id");
+
+                var url = "/Home/EditNote/";
+
+                $.getJSON(url, {id: id}, function (data) {
+                    //alert("we got it: " + data.Title + data.Text + data.Text);
+                    $(".modal-body #titleTxt").val(data.Title);
+                    $(".modal-body textarea#contentTxt").val(data.Text);
+                    $(".modal-body #colorDropDown").val(data.ColorId);
+                });
+
+                //Edit Post
+                $(".modal-body #editBtn").click(function () {
+                    var title = $(".modal-body #titleTxt").val();
+                    var content = $(".modal-body textarea#contentTxt").val();
+                    var colorId = $(".modal-body #colorDropDown").val();
+                    var url = "/Home/EditNote";
+
+                    var model = {
+                        Id: id,
+                        Title: title,
+                        Text: content,
+                        ColorId: colorId
+                    };
+
+                    $.post(url, { model: model }, function (data) {
+                        toastr.warning("Note is Edited");
+
+                        location.href = "/Home/Index";
+                        //$(".container .thumbContainer").html(data);
+                        //$("#titleTxt").val("");
+                        //$("textarea#contentTxt").val("");
+                        //var colorId = $("#colorDropDown").val(0);
+
+                    }).fail(function () {
+                        toastr.error("Something went wrong, note was not added");
+                    });
+                });
+            });
+
 
         });
     </script>
