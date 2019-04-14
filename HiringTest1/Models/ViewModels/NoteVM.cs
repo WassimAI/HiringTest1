@@ -43,7 +43,7 @@ namespace HiringTest1.Models.ViewModels
         public int ColorId { get; set; }
 
         public string ColorName { get { return db.Colors.Where(x => x.Id == ColorId).Select(x => x.Name).FirstOrDefault(); } }
-        //[DataType(DataType.Date)]
+        [DataType(DataType.DateTime)]
         public DateTime CreatedAt { get; set; }
 
     }

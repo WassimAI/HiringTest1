@@ -25,7 +25,7 @@
     </div>
 </div>
 
-<div class="modal fade" id="EditNoteModal">
+<div class="modal fade" data-backdrop="static" data-keyboard="false" id="EditNoteModal">
     <div class="modal-dialog modal-sm">
         <div class="modal-content">
             <div class="modal-header">
@@ -47,25 +47,36 @@
             $("#submitBtn").click(function () {
                 var title = $("#titleTxt").val();
                 var content = $("textarea#contentTxt").val();
-                var colorId = $("#colorDropDown").val();
-                var url = "/Home/addNote";
 
-                var model = {
-                    Title: title,
-                    Text: content,
-                    ColorId: colorId
-                };
+                if (title == "" || content == "") {
+                    toastr.info("Note title and Description are required.");
+                } else {
+                    var colorId = $("#colorDropDown").val();
 
-                $.post(url, { model: model }, function (data) {
-                    toastr.success("Note is Added");
-                    $(".container .thumbContainer").html(data);
-                    $("#titleTxt").val("");
-                    $("textarea#contentTxt").val("");
-                    var colorId = $("#colorDropDown").val(0);
+                    if (colorId == 0) {
+                        colorId = 1;
+                    }
 
-                }).fail(function () {
-                    toastr.error("Something went wrong, note was not added");
-                });
+                    var url = "/Home/addNote";
+
+                    var model = {
+                        Title: title,
+                        Text: content,
+                        ColorId: colorId
+                    };
+
+                    $.post(url, { model: model }, function (data) {
+                        toastr.success("Note is Added");
+                        $(".container .thumbContainer").html(data);
+                        $("#titleTxt").val("");
+                        $("textarea#contentTxt").val("");
+                        var colorId = $("#colorDropDown").val(0);
+
+                    }).fail(function () {
+                        toastr.error("Something went wrong, note was not added");
+                    });
+                }
+                
             });
 
             //Delete Note
@@ -103,30 +114,42 @@
 
                 //Edit Post
                 $(".modal-body #editBtn").click(function () {
-                    var title = $(".modal-body #titleTxt").val();
-                    var content = $(".modal-body textarea#contentTxt").val();
-                    var colorId = $(".modal-body #colorDropDown").val();
-                    var url = "/Home/EditNote";
+                    var modalTitle = $(".modal-body #titleTxt").val();
+                    var modalContent = $(".modal-body textarea#contentTxt").val();
+                    //var colorId = $(".modal-body #colorDropDown").val();
 
-                    var model = {
-                        Id: id,
-                        Title: title,
-                        Text: content,
-                        ColorId: colorId
-                    };
+                    if (modalTitle == "" || modalContent == "") {
+                        toastr.info("Note title and Description are required.");
+                    } else {
+                        var colorId = $(".modal-body #colorDropDown").val();
 
-                    $.post(url, { model: model }, function (data) {
-                        toastr.warning("Note is Edited");
+                        if (colorId == 0) {
+                            colorId = 1;
+                        }
 
-                        location.href = "/Home/Index";
-                        //$(".container .thumbContainer").html(data);
-                        //$("#titleTxt").val("");
-                        //$("textarea#contentTxt").val("");
-                        //var colorId = $("#colorDropDown").val(0);
+                        var url = "/Home/EditNote";
 
-                    }).fail(function () {
-                        toastr.error("Something went wrong, note was not added");
-                    });
+                        var model = {
+                            Id: id,
+                            Title: modalTitle,
+                            Text: modalContent,
+                            ColorId: colorId
+                        };
+
+                        $.post(url, { model: model }, function (data) {
+                            toastr.success("Note is Edited");
+                            setTimeout(function () {
+                                location.href = "/Home/Index";
+                            },2000);
+                            //$(".container .thumbContainer").html(data);
+                            //$("#titleTxt").val("");
+                            //$("textarea#contentTxt").val("");
+                            //var colorId = $("#colorDropDown").val(0);
+
+                        }).fail(function () {
+                            toastr.error("Something went wrong, note was not added");
+                        });
+                    }
                 });
             });
 

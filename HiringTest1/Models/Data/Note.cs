@@ -14,10 +14,8 @@ namespace HiringTest1.Models.Data
         public int Id { get; set; }
         public string Title { get; set; }
         public string Text { get; set; }
-        //[DataType(DataType.Date)]
-        //[DisplayFormat(Date.ToShortDateString)]
+        [DataType(DataType.DateTime)]
         public DateTime CreatedAt { get; set; }
-//        [ForeignKey("ColorId")]
         public int ColorId { get; set; }
     }
 }
